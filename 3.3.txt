@@ -1,0 +1,83 @@
+package com.cg.eis.exception;
+
+public class EmployeeException extends Exception{
+	String exception;
+
+	public EmployeeException(String exception) {
+		
+		this.exception = exception;
+		System.err.println(exception);
+	}
+}
+
+
+-------
+package com.cg.eis.bean;
+import com.cg.eis.exception.*;
+public class Employee {
+int id;
+String name;
+int salary;
+int designation;
+String insurationScheme;
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public int getSalary() {
+	return salary;
+}
+public void setSalary(int salary) {
+	try{
+		if(salary>=3000)		
+			this.salary = salary;
+		else{
+			throw new EmployeeException("Salary cannot be less than 3000");
+			}
+		}
+	catch(EmployeeException e){
+		e.printStackTrace();
+	}
+}
+public int getDesignation() {
+	return designation;
+}
+public void setDesignation(int designation) {
+	this.designation = designation;
+}
+public String getInsurationScheme() {
+	return insurationScheme;
+}
+public void setInsurationScheme(String insurationScheme) {
+	this.insurationScheme = insurationScheme;
+}
+}
+
+Output:
+
+Please enter your employee id
+150704
+Please enter your name
+Dadi Jahanavi
+Enter the salary
+15600
+Select your designation
+1.Clerk
+2.System Associate
+3.Programmer
+4.Manager
+2
+
+Employee Id : 150704
+Employee Name : Dadi Jahanavi
+Salary : 15600
+Designation : System Associate
+Insuration Scheme : Scheme C

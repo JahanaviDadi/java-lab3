@@ -1,0 +1,65 @@
+public class AgeException extends Exception{
+String exception;
+
+public AgeException(String exception) {
+	
+	this.exception = exception;
+	System.err.println(exception);
+}
+
+}
+
+----
+
+public class Person_Account_Savings extends Savings_Account {
+String name;
+float age;
+public static void main(String[] args) {
+		Person_Account_Savings accHolder1=new Person_Account_Savings();
+		Person_Account_Savings accHolder2=new Person_Account_Savings();
+		accHolder1.setName("smith");
+		accHolder1.setAge(10);
+		accHolder1.getAccNum();
+		accHolder1.setBalance(2000);
+		accHolder1.deposit(2000);
+		
+		System.out.println(accHolder1);
+		accHolder2.setName("Kathy");
+		accHolder2.setAge(20);
+		accHolder2.getAccNum();
+		accHolder2.setBalance(3000);
+		accHolder2.withdraw(2000);
+		System.out.println(accHolder2);
+		
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public float getAge() {
+	return age;
+}
+public void setAge(float age) {
+	try{
+		if(age>15)
+		this.age = age;
+		else{
+			throw new AgeException("Age should be greater than 15");
+		}
+	}
+	catch(AgeException a){
+		a.printStackTrace();
+	}
+	
+}
+public String toString()
+{
+	return "Account No: "+this.accNum+"\nTotal balance is "+this.balance+"\n";
+}
+}
+
+Output:
+
+Age should be greater than 15

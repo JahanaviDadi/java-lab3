@@ -1,0 +1,161 @@
+public class ValidateNameException extends Exception{
+String exception;
+
+public ValidateNameException(String exception) {
+	
+	this.exception = exception;
+	System.err.println(exception);
+}
+
+}
+
+
+---
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
+public class Person {
+	private String firstName;
+	private String lastName;
+	private String gender;
+	private long mobileNo;
+	static enum gend{
+		M,F
+	};
+	gend ge;
+	
+	public Person(String firstName, String lastName, String gender, long mobileNo) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+		this.mobileNo = mobileNo;
+	}
+	public Person() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		if(ge.M.toString()==gender || ge.F.toString()==gender)
+		{
+			
+		this.gender = gender;
+		}
+	}
+	public long getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo(long mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+	public String getFullName(){
+		
+		try
+		{
+		if(firstName.isEmpty() && lastName.isEmpty()) 
+		{
+			throw new ValidateNameException("First Name and Last Name cannot be empty");
+		}
+		
+		}
+		catch(ValidateNameException v){
+			v.printStackTrace();
+		}
+		return (firstName+" "+lastName);
+	}
+	public int calculateAge(String dob,DateTimeFormatter dtf)
+	{
+		String text=dob;
+		LocalDate date = LocalDate.parse(text, dtf);
+        LocalDate now = LocalDate.now();
+        Period diff = Period.between(date, now);
+        return diff.getYears();
+	}
+	public void display(String f,String l,String g,long m,String full_name,int age){
+		this.firstName = f;
+		this.lastName = l;
+		this.gender = g;
+		this.mobileNo = m;
+		if(ge.M.toString()!=g && ge.F.toString()!=g)
+		{
+			g=null;
+			System.out.println("Please enter a valid gender for "+f);
+		}
+		else
+		{
+		System.out.println("Person Details:\n"
+				+"____________\n"
+				+"\nFirst Name:"+f+"\n"
+				+"Last Name:"+l+"\n"
+				+"Gender:"+g
+				+"\n"+"Mobile Number :"+m+"\n"
+				+"Full Name :"+full_name+"\n"
+				+"Age :"+age);
+	}
+		}
+	
+}
+
+
+------
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+
+
+
+
+public class PersonMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Person p1,p2;
+		
+		p1=new Person();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		System.out.println("Please enter Date of Birth in the format dd/MM/yyyy");
+		Scanner sc=new Scanner(System.in);
+		String dob=sc.nextLine();
+		p1.display("Divya","Bharathi","F",810885855,"DivyaBharathi",20);
+		p2=new Person();
+		p2.setFirstName("");
+		p2.setLastName("");
+		p2.setGender("M");
+		p2.setMobileNo(703229025);
+		p2.display(p2.getFirstName(),p2.getLastName(),p2.getGender(),p2.getMobileNo(),p2.getFullName(),p1.calculateAge(dob,dtf));
+		
+		
+	}
+
+}
+
+Output:
+
+Please enter Date of Birth in the format dd/MM/yyyy
+16/08/1997
+Person Details:
+____________
+
+First Name:Divya
+Last Name:Bharathi
+Gender:F
+Mobile Number :810885855
+Full Name :DivyaBharathi
+Age :20
